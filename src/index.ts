@@ -1,9 +1,9 @@
 import Fastify, { FastifyRequest, FastifyReply } from "fastify";
 import fjwt from "@fastify/jwt";
-// import swagger from "fastify-swagger";
-// import { withRefResolver } from "fastify-zod";
+import swagger from "@fastify/swagger";
+import { withRefResolver } from "fastify-zod";
 import userRoutes from "./modules/user/user.route";
-// import songRoutes from "./modules/song/song.route";
+import songRoutes from "./modules/song/song.route";
 import { userSchemas } from "./modules/user/user.schema";
 import { songSchemas } from "./modules/song/song.schema";
 // import { version } from "../package.json";
@@ -52,24 +52,24 @@ async function main() {
         server.addSchema(schema);
     }
 
-    // server.register(
-    //     swagger,
-    //     withRefResolver({
-    //         routePrefix: "/docs",
-    //         exposeRoute: true,
-    //         staticCSP: true,
-    //         openapi: {
-    //             info: {
-    //                 title: "Fastify API",
-    //                 description: "API for some songs",
-    //                 version,
-    //             },
-    //         },
-    //     })
-    // );
+    server.register(
+        swagger,
+        withRefResolver({
+            routePrefix: "/docs",
+            exposeRoute: true,
+            staticCSP: true,
+            openapi: {
+                info: {
+                    title: "Fastify API",
+                    description: "API for some products",
+                    version: "1.0.0",
+                },
+            },
+        })
+    );
 
     server.register(userRoutes, { prefix: "api/users" });
-    // server.register(songRoutes, { prefix: "api/songs" });
+    server.register(songRoutes, { prefix: "api/songs" });
 
     try {
         await server.listen({ port: 3000 });

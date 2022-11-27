@@ -24,6 +24,6 @@ model Song {
   song_id Int @id @default(autoincrement())
   judul String @db.VarChar(64)
   penyanyi_id Int
-  Audio_path String @db.VarChar(256)
+  audio_path String @db.VarChar(256)
   penyanyi User @relation(fields: [penyanyi_id], references: [user_id])
 }

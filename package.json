@@ -22,7 +22,13 @@
   "author": "K01-02-04",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^4.10.0"
+    "@prisma/client": "^4.6.1",
+    "fastify": "^4.10.2",
+    "fastify-jwt": "^4.2.0",
+    "fastify-swagger": "^5.2.0",
+    "fastify-zod": "^1.2.0",
+    "zod": "^3.19.1",
+    "zod-to-json-schema": "^3.19.1"
   },
   "devDependencies": {
     "@tsconfig/node18-strictest-esm": "^1.0.1",

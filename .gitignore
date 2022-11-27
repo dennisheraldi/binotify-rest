@@ -1,5 +1,4 @@
 node_modules
-prisma/migrations/20221126131420_init/migration.sql
-prisma/migrations/20221127021958_init/migration.sql
-prisma/migrations/20221127022505_init/migration.sql
+*.sql
 prisma/migrations/migration_lock.toml
+.env

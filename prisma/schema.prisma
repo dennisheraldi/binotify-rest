@@ -27,4 +27,3 @@ model Song {
   Audio_path String @db.VarChar(256)
   penyanyi User @relation(fields: [penyanyi_id], references: [user_id])
 }
-

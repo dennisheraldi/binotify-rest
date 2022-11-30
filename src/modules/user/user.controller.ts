@@ -1,7 +1,12 @@
 import type { FastifyReply, FastifyRequest } from "fastify";
 import { verifyPassword } from "../../utils/hash";
 import type { CreateUserInput, LoginInput } from "./user.schema";
-import { createUser, findUserByEmail, findUsers } from "./user.service";
+import {
+    createUser,
+    findUserByEmail,
+    findUsers,
+    findAdmins,
+} from "./user.service";
 import { server } from "../../index";
 
 export async function registerUserHandler(
@@ -60,4 +65,10 @@ export async function getUsersHandler() {
     const users = await findUsers();
 
     return users;
+}
+
+export async function getAdminsHandler() {
+    const admins = await findAdmins();
+
+    return admins;
 }

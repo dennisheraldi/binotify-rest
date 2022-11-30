@@ -33,3 +33,18 @@ export async function findUsers() {
         },
     });
 }
+
+export async function findAdmins() {
+    return prisma.user.findMany({
+        where: {
+            isAdmin: true,
+        },
+        select: {
+            user_id: true,
+            email: true,
+            username: true,
+            name: true,
+            isAdmin: true,
+        },
+    });
+}

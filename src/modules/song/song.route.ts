@@ -1,4 +1,4 @@
-import type { FastifyInstance } from "fastify";
+import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
 import {
     createSongHandler,
     getSongsHandler,
@@ -7,6 +7,30 @@ import {
     deleteSongHandler,
 } from "./song.controller";
 import { $ref } from "./song.schema";
+import multer from "fastify-multer";
+
+declare module "fastify" {
+    interface FastifyRequest {
+        file: any;
+    }
+}
+
+const storage = multer.diskStorage({
+    destination: function (_req, _file, cb) {
+        cb(null, "./public/audio");
+    },
+    filename: function (_req, file, cb) {
+        cb(null, Date.now() + "-" + file.originalname);
+    },
+});
+
+const upload = multer({ storage: storage });
+
+let fieldsUpload = upload.single("file");
+
+const uploadFile = async (req: FastifyRequest, res: FastifyReply) => {
+    res.send(req.file);
+};
 
 async function SongRoutes(server: FastifyInstance) {
     // Create song
@@ -81,6 +105,15 @@ async function SongRoutes(server: FastifyInstance) {
             },
         },
         deleteSongHandler
+    );
+
+    //Upload song file
+    server.post(
+        "/upload",
+        {
+            preHandler: fieldsUpload,
+        },
+        uploadFile
     );
 }
 

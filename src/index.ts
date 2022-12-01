@@ -6,6 +6,7 @@ import userRoutes from "./modules/user/user.route";
 import songRoutes from "./modules/song/song.route";
 import { userSchemas } from "./modules/user/user.schema";
 import { songSchemas } from "./modules/song/song.schema";
+import multer from "fastify-multer";
 // import { version } from "../package.json";
 
 export const server = Fastify();
@@ -36,6 +37,8 @@ declare module "@fastify/jwt" {
 server.register(fjwt, {
     secret: "theonlysecret",
 });
+
+server.register(multer.contentParser);
 
 server.decorate(
     "authenticate",

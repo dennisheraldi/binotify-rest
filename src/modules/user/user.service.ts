@@ -14,10 +14,10 @@ export async function createUser(input: CreateUserInput) {
     return user;
 }
 
-export async function findUserByEmail(email: string) {
+export async function findUserByUsername(username: string) {
     return prisma.user.findUnique({
         where: {
-            email,
+            username,
         },
     });
 }

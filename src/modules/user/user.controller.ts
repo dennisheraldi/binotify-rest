@@ -3,7 +3,7 @@ import { verifyPassword } from "../../utils/hash";
 import type { CreateUserInput, LoginInput } from "./user.schema";
 import {
     createUser,
-    findUserByEmail,
+    findUserByUsername,
     findUsers,
     findAdmins,
     findPenyanyi,
@@ -36,12 +36,12 @@ export async function loginHandler(
 ) {
     const body = request.body;
 
-    // find a user by email
-    const user = await findUserByEmail(body.email);
+    // find a user by username
+    const user = await findUserByUsername(body.username);
 
     if (!user) {
         return reply.code(401).send({
-            message: "Invalid email or password",
+            message: "Invalid username or password",
         });
     }
 
@@ -58,7 +58,7 @@ export async function loginHandler(
     }
 
     return reply.code(401).send({
-        message: "Invalid email or password",
+        message: "Invalid username or password",
     });
 }
 

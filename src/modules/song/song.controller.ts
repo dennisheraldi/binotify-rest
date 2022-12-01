@@ -63,8 +63,8 @@ export async function updateSongHandler(
     } else {
         // assign value of judul and audio path based on fetch and request body
         const judul = request.body.judul || fetchSong.judul;
-        // Delete song if body audio path is different from fetch song audio path
-        if (request.body.audio_path !== fetchSong.audio_path) {
+        // Delete song if body audio path available
+        if (request.body.audio_path) {
             fs.unlinkSync(fetchSong.audio_path);
         }
         const audio_path = request.body.audio_path || fetchSong.audio_path;

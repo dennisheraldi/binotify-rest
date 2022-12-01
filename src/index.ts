@@ -6,7 +6,9 @@ import userRoutes from "./modules/user/user.route";
 import songRoutes from "./modules/song/song.route";
 import { userSchemas } from "./modules/user/user.schema";
 import { songSchemas } from "./modules/song/song.schema";
+import { subscriptionSchemas } from "./modules/subscription/subscription.schema";
 import multer from "fastify-multer";
+import subscriptionRoutes from "./modules/subscription/subscription.route";
 // import { version } from "../package.json";
 
 export const server = Fastify();
@@ -56,7 +58,7 @@ server.get("/healthcheck", async function () {
 });
 
 async function main() {
-    for (const schema of [...userSchemas, ...songSchemas]) {
+    for (const schema of [...userSchemas, ...songSchemas, ...subscriptionSchemas]) {
         server.addSchema(schema);
     }
 
@@ -86,6 +88,7 @@ async function main() {
 
     server.register(userRoutes, { prefix: "api/users" });
     server.register(songRoutes, { prefix: "api/songs" });
+    server.register(subscriptionRoutes, { prefix: "api/subscriptions" });
 
     try {
         await server.listen({ host: "0.0.0.0", port: 3000 });

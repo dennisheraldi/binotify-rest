@@ -6,6 +6,7 @@ import {
     findUserByEmail,
     findUsers,
     findAdmins,
+    findPenyanyi,
 } from "./user.service";
 import { server } from "../../index";
 
@@ -71,4 +72,10 @@ export async function getAdminsHandler() {
     const admins = await findAdmins();
 
     return admins;
+}
+
+export async function getPenyanyiHandler() {
+    const penyanyi = await findPenyanyi();
+
+    return penyanyi;
 }

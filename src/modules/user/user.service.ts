@@ -48,3 +48,18 @@ export async function findAdmins() {
         },
     });
 }
+
+export async function findPenyanyi() {
+    return prisma.user.findMany({
+        where: {
+            isAdmin: false,
+        },
+        select: {
+            user_id: true,
+            email: true,
+            username: true,
+            name: true,
+            isAdmin: true,
+        },
+    });
+}

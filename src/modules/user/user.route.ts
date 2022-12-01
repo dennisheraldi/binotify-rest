@@ -4,6 +4,7 @@ import {
     registerUserHandler,
     getUsersHandler,
     getAdminsHandler,
+    getPenyanyiHandler,
 } from "./user.controller";
 import { $ref } from "./user.schema";
 
@@ -37,6 +38,8 @@ async function userRoutes(server: FastifyInstance) {
     server.get("/", {}, getUsersHandler);
 
     server.get("/admins", {}, getAdminsHandler);
+
+    server.get("/penyanyi", {}, getPenyanyiHandler);
 }
 
 export default userRoutes;

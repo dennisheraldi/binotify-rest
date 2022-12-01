@@ -10,6 +10,11 @@ import { songSchemas } from "./modules/song/song.schema";
 
 export const server = Fastify();
 
+// Allow CORS
+server.register(require("@fastify/cors"), {
+    origin: true,
+});
+
 declare module "fastify" {
     export interface FastifyInstance {
         authenticate: any;

@@ -11,6 +11,7 @@ import {
     updateSong,
     deleteSong,
 } from "./song.service";
+import fs from "fs";
 
 export async function createSongHandler(
     request: FastifyRequest<{
@@ -62,6 +63,10 @@ export async function updateSongHandler(
     } else {
         // assign value of judul and audio path based on fetch and request body
         const judul = request.body.judul || fetchSong.judul;
+        // Delete song if body audio path is different from fetch song audio path
+        if (request.body.audio_path !== fetchSong.audio_path) {
+            fs.unlinkSync(fetchSong.audio_path);
+        }
         const audio_path = request.body.audio_path || fetchSong.audio_path;
         const song_id = request.params.song_id;
         const song = await updateSong({ judul, audio_path, song_id });
@@ -83,6 +88,9 @@ export async function deleteSongHandler(
     if (!fetchSong) {
         throw new Error("Song not found");
     } else {
+        // Delete file
+        fs.unlinkSync(fetchSong.audio_path);
+
         await deleteSong({ song_id: request.params.song_id });
         // return success message
         return getSongs({ penyanyi_id: request.user.user_id });

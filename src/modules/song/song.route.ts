@@ -5,6 +5,7 @@ import {
     getSongHandler,
     updateSongHandler,
     deleteSongHandler,
+    getSongByPenyanyi,
 } from "./song.controller";
 import { $ref } from "./song.schema";
 import multer from "fastify-multer";
@@ -63,7 +64,7 @@ async function SongRoutes(server: FastifyInstance) {
 
     // Read specific song by song_id
     server.get(
-        "/:song_id",
+        "/:song_id/:penyanyi_id",
         {
             preHandler: [server.authenticate],
             schema: {
@@ -74,6 +75,17 @@ async function SongRoutes(server: FastifyInstance) {
             },
         },
         getSongHandler
+    );
+
+    // Read specific song by penyanyi_id
+    server.get(
+        "/:penyanyi_id",
+        {
+            schema: {
+                params: $ref("songPenyanyiIdSchema"),
+            }
+        },
+        getSongByPenyanyi
     );
 
     // Update song

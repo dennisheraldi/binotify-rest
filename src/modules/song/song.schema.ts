@@ -26,11 +26,16 @@ const songIdSchema = z.object({
     song_id: z.number(),
 });
 
+const songPenyanyiIdSchema = z.object({
+    penyanyi_id: z.number(),
+});
+
 const songsResponseSchema = z.array(songResponseSchema);
 
 export type CreateSongInput = z.infer<typeof createSongSchema>;
 export type UpdateSongInput = z.infer<typeof updateSongSchema>;
 export type IdSongInput = z.infer<typeof songIdSchema>;
+export type PenyanyiIdSongInput = z.infer<typeof songPenyanyiIdSchema>;
 export const { schemas: songSchemas, $ref } = buildJsonSchemas(
     {
         createSongSchema,
@@ -38,6 +43,7 @@ export const { schemas: songSchemas, $ref } = buildJsonSchemas(
         songIdSchema,
         songResponseSchema,
         songsResponseSchema,
+        songPenyanyiIdSchema,
     },
     { $id: "songSchema" }
 );

@@ -3,6 +3,7 @@ import type {
     CreateSongInput,
     UpdateSongInput,
     IdSongInput,
+    PenyanyiIdSongInput,
 } from "./song.schema";
 import {
     createSong,
@@ -42,6 +43,17 @@ export async function getSongHandler(
     const song = await getSong({
         song_id: request.params.song_id,
         penyanyi_id: request.user.user_id,
+    });
+    return song;
+}
+
+export async function getSongByPenyanyi(
+    request: FastifyRequest<{
+        Params: PenyanyiIdSongInput;
+    }>
+) {
+    const song = await getSongs({
+        penyanyi_id: request.params.penyanyi_id,
     });
     return song;
 }

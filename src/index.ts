@@ -16,6 +16,7 @@ export const server = Fastify();
 // Allow CORS
 server.register(require("@fastify/cors"), {
     origin: true,
+    credentials: true,
 });
 
 declare module "fastify" {
@@ -38,6 +39,9 @@ declare module "@fastify/jwt" {
 
 server.register(fjwt, {
     secret: "theonlysecret",
+    sign: {
+        expiresIn: "2h",
+    }
 });
 
 server.register(multer.contentParser);

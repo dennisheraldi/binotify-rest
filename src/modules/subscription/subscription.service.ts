@@ -9,7 +9,7 @@ export async function approvalSub(
     CreatorId: number,
     IsApproved: boolean,
 ) {
-    return await Soap.call("ApprovalSubs", {
+    return await Soap.call("ApprovalSub", {
         SubscriberId,
         CreatorId,
         IsApproved,

@@ -2,7 +2,7 @@
 
 ## Deskripsi web service
 
-Service yang bisa menangani pengelolaan lagu premium oleh seorang penyanyi dan passing request/response ke Binotify SOAP Service. Service ini wajib dibangun dengan NodeJS
+Service yang bisa menangani pengelolaan lagu premium oleh seorang penyanyi dan passing request/response ke Binotify SOAP Service. Service ini dibangun dengan NodeJS
 
 ## Skema basis data yang digunakan
 

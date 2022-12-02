@@ -19,9 +19,11 @@ export async function registerUserHandler(
     const body = request.body;
 
     try {
-        const user = await createUser(body);
+        const { password, ...others } = await createUser(body);
 
-        return reply.code(201).send(user);
+        return reply.code(201).send({
+            accessToken: server.jwt.sign(others)
+        });
     } catch (e) {
         console.log(e);
         return reply.code(500).send(e);

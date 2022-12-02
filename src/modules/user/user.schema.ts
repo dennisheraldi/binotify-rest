@@ -22,8 +22,7 @@ const createUserSchema = z.object({
 });
 
 const createUserResponseSchema = z.object({
-    user_id: z.number(),
-    ...userCore,
+    accessToken: z.string(),
 });
 
 const loginSchema = z.object({

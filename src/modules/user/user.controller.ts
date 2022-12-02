@@ -81,3 +81,9 @@ export async function getPenyanyiHandler() {
 
     return penyanyi;
 }
+
+export async function authorizeHandler(request: FastifyRequest, reply: FastifyReply) {
+    return reply.code(200).send({
+        accessToken: server.jwt.sign(request.user),
+    });
+}

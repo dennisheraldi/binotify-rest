@@ -5,6 +5,7 @@ import {
     getUsersHandler,
     getAdminsHandler,
     getPenyanyiHandler,
+    authorizeHandler,
 } from "./user.controller";
 import { $ref } from "./user.schema";
 
@@ -40,6 +41,10 @@ async function userRoutes(server: FastifyInstance) {
     server.get("/admins", {}, getAdminsHandler);
 
     server.get("/penyanyi", {}, getPenyanyiHandler);
+
+    server.post("/authorize", {
+        preHandler: [server.authenticate],
+    }, authorizeHandler);
 }
 
 export default userRoutes;

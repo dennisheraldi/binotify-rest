@@ -3,7 +3,7 @@
 Service yang bisa menangani pengelolaan lagu premium oleh seorang penyanyi dan passing request/response ke Binotify SOAP Service. Service ini wajib dibangun dengan NodeJS
 
 ## Skema basis data yang digunakan
-
+![image.png](.img/image.png)
 
 ## Penjelasan mengenai pembagian tugas masing-masing anggota
 - Backend Binotify Premium Database : 13520139

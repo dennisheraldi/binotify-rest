@@ -16,11 +16,15 @@ import fs from "fs";
 
 export async function createSongHandler(
     request: FastifyRequest<{
-        Body: CreateSongInput;
+        Body: {
+            judul: string;
+        };
     }>
 ) {
+    const filename = "public/audio/" + request.file.filename;
     const song = await createSong({
-        ...request.body,
+        judul: request.body.judul,
+        audio_path: filename.replace(/\s/g, ""),
         penyanyi_id: request.user.user_id,
     });
 

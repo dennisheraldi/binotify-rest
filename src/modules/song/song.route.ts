@@ -1,4 +1,4 @@
-import type { FastifyInstance, FastifyRequest, FastifyReply } from "fastify";
+import type { FastifyInstance } from "fastify";
 import {
     createSongHandler,
     getSongsHandler,
@@ -21,7 +21,7 @@ const storage = multer.diskStorage({
         cb(null, "./public/audio");
     },
     filename: function (_req, file, cb) {
-        cb(null, Date.now() + "-" + file.originalname);
+        cb(null, Date.now() + "_" + file.originalname);
     },
 });
 
@@ -29,18 +29,13 @@ const upload = multer({ storage: storage });
 
 let fieldsUpload = upload.single("file");
 
-const uploadFile = async (req: FastifyRequest, res: FastifyReply) => {
-    res.send(req.file);
-};
-
 async function SongRoutes(server: FastifyInstance) {
     // Create song
     server.post(
         "/",
         {
-            preHandler: [server.authenticate],
+            preHandler: [server.authenticate, fieldsUpload],
             schema: {
-                body: $ref("createSongSchema"),
                 response: {
                     201: $ref("songResponseSchema"),
                 },
@@ -48,6 +43,7 @@ async function SongRoutes(server: FastifyInstance) {
         },
         createSongHandler
     );
+
     // Read all song
     server.get(
         "/",
@@ -83,7 +79,7 @@ async function SongRoutes(server: FastifyInstance) {
         {
             schema: {
                 params: $ref("songPenyanyiIdSchema"),
-            }
+            },
         },
         getSongByPenyanyi
     );
@@ -117,15 +113,6 @@ async function SongRoutes(server: FastifyInstance) {
             },
         },
         deleteSongHandler
-    );
-
-    //Upload song file
-    server.post(
-        "/upload",
-        {
-            preHandler: fieldsUpload,
-        },
-        uploadFile
     );
 }
 

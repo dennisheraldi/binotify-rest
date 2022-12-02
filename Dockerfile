@@ -10,5 +10,6 @@ FROM node:alpine
 WORKDIR /app
 COPY --from=builder /app .
 COPY run.sh .
+RUN mkdir /app/public && mkdir /app/public/audio
 
 CMD [ "/app/run.sh" ]
